@@ -1,0 +1,21 @@
+{
+  "extends": "ts-config-single-spa",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "declarationDir": "dist",
+    "paths": {
+      "@grupo21/utils": [
+        "../utils/src"
+      ]
+    },
+  },
+  "files": [
+    "src/grupo21-balance.tsx"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/**/*.test*"
+  ]
+}

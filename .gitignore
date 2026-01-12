@@ -1,0 +1,12 @@
+# Example .gitignore content
+# Ignore all files ending in .txt
+*.txt
+
+# Ignore the 'node_modules' directory
+node_modules/
+
+# Ignore the specific file 'api_keys.txt'
+api_keys.txt
+
+# Ignore Mac OS specific files
+.DS_Store
