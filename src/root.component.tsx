@@ -13,8 +13,15 @@ export default function Root(props) {
   const { onTransationsByMonth } = transactionService;
 
   useEffect(() => {
-    const unsub = onTransationsByMonth(y, m, setTransactions);
-    return () => unsub();
+    let unsub: (() => void) | undefined;
+
+    onTransationsByMonth(y, m, setTransactions).then((unsubscribe) => {
+      unsub = unsubscribe;
+    });
+
+    return () => {
+      if (unsub) unsub();
+    };
   }, [y, m]);
 
   return (

@@ -25,12 +25,19 @@ export default function BalanceCard({ }: BalanceCardProps) {
   const m = now.getMonth() + 1;
 
   const { onTransationsByMonth } = transactionService;
-  console.log('transactionService: ', transactionService)
+
   const [transactions, setTransactions] = useState<any[]>([]);
 
   useEffect(() => {
-    const unsub = onTransationsByMonth(y, m, setTransactions);
-    return () => unsub();
+    let unsub: (() => void) | undefined;
+
+    onTransationsByMonth(y, m, setTransactions).then((unsubscribe) => {
+      unsub = unsubscribe;
+    });
+
+    return () => {
+      if (unsub) unsub();
+    };
   }, [y, m]);
 
   const deposits = transactions.filter((t) => t.type === "deposito");
@@ -108,8 +115,6 @@ export default function BalanceCard({ }: BalanceCardProps) {
       </section>
     );
   }
-
-  console.log('transactions: ', transactions)
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full mt-5">
